@@ -90,9 +90,9 @@ export const commentConfig: CommentConfig = {
 	enable: true,
 	giscus: {
 		repo: "Parsonlee/Parsonlee.github.io",
-		repoId: "", // TODO: 在 giscus.app 配置后填写
+		repoId: "R_kgDOUJUbVg",
 		category: "Announcements",
-		categoryId: "", // TODO: 在 giscus.app 配置后填写
+		categoryId: "DIC_kwDOUJUbVs4DEjQt",
 		mapping: "pathname",
 		reactionsEnabled: true,
 		inputPosition: "top",
