@@ -1,9 +1,8 @@
-# About
-This is the demo site for [Fuwari](https://github.com/saicaca/fuwari).
+你好，我是 Parsonlee。
 
-::github{repo="saicaca/fuwari"}
+一名开发者，平时喜欢折腾各种技术，记录开发中踩过的坑和一些思考。
 
-> ### Sources of images used in this site
-> - [Unsplash](https://unsplash.com/)
-> - [星と少女](https://www.pixiv.net/artworks/108916539) by [Stella](https://www.pixiv.net/users/93273965)
-> - [Rabbit - v1.4 Showcase](https://civitai.com/posts/586908) by [Rabbit_YourMajesty](https://civitai.com/user/Rabbit_YourMajesty)
+- GitHub：[Parsonlee](https://github.com/Parsonlee)
+- RSS 订阅：[https://parsonlee.github.io/rss.xml](/rss.xml)
+
+本站由 [Astro](https://astro.build/) 与 [Fuwari](https://github.com/saicaca/fuwari) 主题驱动，托管于 GitHub Pages。
