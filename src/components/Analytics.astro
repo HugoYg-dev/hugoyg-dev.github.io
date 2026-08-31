@@ -9,8 +9,36 @@ const showUmami = enable && provider === "umami" && !!umamiScriptSrc && !!umamiW
 
 {showGoatcounter && (
 	<script is:inline async data-goatcounter={goatcounterSite} src="https://gc.zgo.at/count.js"></script>
+	<script is:inline>
+	function trackGoatcounter() {
+		if (window.goatcounter && typeof window.goatcounter.count === "function") {
+			window.goatcounter.count({ path: location.pathname + location.search + location.hash });
+		}
+	}
+	if (window?.swup?.hooks) {
+		window.swup.hooks.on("page:view", trackGoatcounter);
+	} else {
+		document.addEventListener("swup:enable", () => {
+			window.swup.hooks.on("page:view", trackGoatcounter);
+		});
+	}
+	</script>
 )}
 
 {showUmami && (
 	<script is:inline defer src={umamiScriptSrc} data-website-id={umamiWebsiteId}></script>
+	<script is:inline>
+	function trackUmami() {
+		if (window.umami && typeof window.umami.track === "function") {
+			window.umami.track();
+		}
+	}
+	if (window?.swup?.hooks) {
+		window.swup.hooks.on("page:view", trackUmami);
+	} else {
+		document.addEventListener("swup:enable", () => {
+			window.swup.hooks.on("page:view", trackUmami);
+		});
+	}
+	</script>
 )}

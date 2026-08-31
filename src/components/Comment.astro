@@ -30,7 +30,7 @@ const enabled = commentConfig.enable && configured;
     </div>
     <div id="giscus-container"></div>
     <script is:inline define:vars={{ giscus, giscusLang }}>
-    (function () {
+    function initGiscus() {
         const container = document.getElementById("giscus-container");
         if (!container || container.querySelector("iframe.giscus-frame")) return;
 
@@ -53,18 +53,34 @@ const enabled = commentConfig.enable && configured;
         script.crossOrigin = "anonymous";
         script.async = true;
         container.appendChild(script);
+    }
 
-        // 跟随站点明暗模式切换
-        const themeObserver = new MutationObserver(() => {
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initGiscus);
+    } else {
+        initGiscus();
+    }
+
+    if (window?.swup?.hooks) {
+        window.swup.hooks.on("page:view", initGiscus);
+    } else {
+        document.addEventListener("swup:enable", () => {
+            window.swup.hooks.on("page:view", initGiscus);
+        });
+    }
+
+    if (!window._giscusThemeObserver) {
+        window._giscusThemeObserver = new MutationObserver(() => {
             const iframe = document.querySelector("iframe.giscus-frame");
             if (!iframe) return;
+            const isDark = document.documentElement.classList.contains("dark");
             iframe.contentWindow.postMessage(
-                { giscus: { setConfig: { theme: isDark() ? "dark" : "light" } } },
+                { giscus: { setConfig: { theme: isDark ? "dark" : "light" } } },
                 "https://giscus.app"
             );
         });
-        themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    })();
+        window._giscusThemeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    }
     </script>
 </div>
 )}
