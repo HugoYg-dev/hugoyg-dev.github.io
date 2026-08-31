@@ -17,9 +17,15 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      administration: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages (build with Actions)
+        uses: actions/configure-pages@v5
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
