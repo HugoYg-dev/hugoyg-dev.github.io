@@ -1,4 +1,6 @@
 import type {
+	AnalyticsConfig,
+	CommentConfig,
 	ExpressiveCodeConfig,
 	LicenseConfig,
 	NavBarConfig,
@@ -80,4 +82,30 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
 	// Please select a dark theme, as this blog theme currently only supports dark background color
 	theme: "github-dark",
+};
+
+// giscus 评论系统：基于 GitHub Discussions。
+// 仓库创建后，到 https://giscus.app 生成 repo-id / category-id 并回填到下方。
+export const commentConfig: CommentConfig = {
+	enable: true,
+	giscus: {
+		repo: "Parsonlee/Parsonlee.github.io",
+		repoId: "", // TODO: 在 giscus.app 配置后填写
+		category: "Announcements",
+		categoryId: "", // TODO: 在 giscus.app 配置后填写
+		mapping: "pathname",
+		reactionsEnabled: true,
+		inputPosition: "top",
+	},
+};
+
+// 访问统计：二选一。不使用时把 enable 设为 false 即可，不会注入任何脚本。
+export const analyticsConfig: AnalyticsConfig = {
+	enable: false,
+	provider: "goatcounter",
+	// provider === 'goatcounter' 时填写，例如 'https://<name>.goatcounter.com/count'
+	goatcounterSite: "",
+	// provider === 'umami' 时填写
+	umamiScriptSrc: "",
+	umamiWebsiteId: "",
 };

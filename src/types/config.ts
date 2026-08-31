@@ -100,3 +100,29 @@ export type BlogPostData = {
 export type ExpressiveCodeConfig = {
 	theme: string;
 };
+
+export type GiscusConfig = {
+	repo: string; // e.g. 'owner/repo'
+	repoId: string; // from giscus.app
+	category: string; // e.g. 'Announcements'
+	categoryId: string; // from giscus.app
+	mapping?: "pathname" | "url" | "title" | "og:title";
+	reactionsEnabled?: boolean;
+	inputPosition?: "top" | "bottom";
+	lang?: string; // giscus UI language, e.g. 'zh-CN'; defaults to site language
+};
+
+export type CommentConfig = {
+	enable: boolean;
+	giscus: GiscusConfig;
+};
+
+export type AnalyticsConfig = {
+	enable: boolean;
+	provider: "goatcounter" | "umami";
+	// goatcounter: e.g. 'https://<name>.goatcounter.com/count'
+	goatcounterSite?: string;
+	// umami: e.g. 'https://<umami-host>/script.js'
+	umamiScriptSrc?: string;
+	umamiWebsiteId?: string;
+};

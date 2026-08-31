@@ -1,0 +1,70 @@
+---
+import { commentConfig, siteConfig } from "@/config";
+
+const giscusLangMap: Record<string, string> = {
+	en: "en",
+	zh_CN: "zh-CN",
+	zh_TW: "zh-TW",
+	ja: "ja",
+	ko: "ko",
+	es: "es",
+	th: "th",
+	vi: "vi",
+	tr: "tr",
+	id: "id",
+};
+
+const giscus = commentConfig.giscus;
+const giscusLang = giscus.lang || giscusLangMap[siteConfig.lang] || "en";
+const configured = !!giscus.repo && !!giscus.repoId && !!giscus.category && !!giscus.categoryId;
+const enabled = commentConfig.enable && configured;
+---
+
+{enabled && (
+<div id="comment-section" class="card-base rounded-[var(--radius-large)] px-6 md:px-9 py-6 mb-4 onload-animation">
+    <div class="flex items-center gap-2 mb-4">
+        <div class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path></svg>
+        </div>
+        <div class="text-lg font-bold text-black/90 dark:text-white/90 transition">评论</div>
+    </div>
+    <div id="giscus-container"></div>
+    <script is:inline define:vars={{ giscus, giscusLang }}>
+    (function () {
+        const container = document.getElementById("giscus-container");
+        if (!container || container.querySelector("iframe.giscus-frame")) return;
+
+        const isDark = () => document.documentElement.classList.contains("dark");
+
+        const script = document.createElement("script");
+        script.src = "https://giscus.app/client.js";
+        script.setAttribute("data-repo", giscus.repo);
+        script.setAttribute("data-repo-id", giscus.repoId);
+        script.setAttribute("data-category", giscus.category);
+        script.setAttribute("data-category-id", giscus.categoryId);
+        script.setAttribute("data-mapping", giscus.mapping || "pathname");
+        script.setAttribute("data-strict", "0");
+        script.setAttribute("data-reactions-enabled", (giscus.reactionsEnabled ?? true) ? "1" : "0");
+        script.setAttribute("data-emit-metadata", "0");
+        script.setAttribute("data-input-position", giscus.inputPosition || "top");
+        script.setAttribute("data-theme", isDark() ? "dark" : "light");
+        script.setAttribute("data-lang", giscusLang);
+        script.setAttribute("data-loading", "lazy");
+        script.crossOrigin = "anonymous";
+        script.async = true;
+        container.appendChild(script);
+
+        // 跟随站点明暗模式切换
+        const themeObserver = new MutationObserver(() => {
+            const iframe = document.querySelector("iframe.giscus-frame");
+            if (!iframe) return;
+            iframe.contentWindow.postMessage(
+                { giscus: { setConfig: { theme: isDark() ? "dark" : "light" } } },
+                "https://giscus.app"
+            );
+        });
+        themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    })();
+    </script>
+</div>
+)}
