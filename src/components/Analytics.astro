@@ -1,10 +1,13 @@
 ---
 import { analyticsConfig } from "@/config";
 
-const { enable, provider, goatcounterSite, umamiScriptSrc, umamiWebsiteId } = analyticsConfig;
+const { enable, provider, goatcounterSite, umamiScriptSrc, umamiWebsiteId } =
+	analyticsConfig;
 
-const showGoatcounter = enable && provider === "goatcounter" && !!goatcounterSite;
-const showUmami = enable && provider === "umami" && !!umamiScriptSrc && !!umamiWebsiteId;
+const showGoatcounter =
+	enable && provider === "goatcounter" && !!goatcounterSite;
+const showUmami =
+	enable && provider === "umami" && !!umamiScriptSrc && !!umamiWebsiteId;
 ---
 
 {showGoatcounter && (

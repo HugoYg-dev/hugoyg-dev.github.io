@@ -11,6 +11,9 @@
     "astro": "astro",
     "type-check": "tsc --noEmit --isolatedDeclarations",
     "new-post": "node scripts/new-post.js",
+    "sync:kb": "uv run scripts/sync_kb.py",
+    "sync:kb:watch": "uv run scripts/sync_kb.py --watch",
+    "sync:cnblogs": "uv run scripts/sync_cnblogs.py",
     "format": "biome format --write ./src",
     "lint": "biome check --write ./src",
     "preinstall": "npx only-allow pnpm"

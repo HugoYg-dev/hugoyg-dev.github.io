@@ -16,7 +16,8 @@ const giscusLangMap: Record<string, string> = {
 
 const giscus = commentConfig.giscus;
 const giscusLang = giscus.lang || giscusLangMap[siteConfig.lang] || "en";
-const configured = !!giscus.repo && !!giscus.repoId && !!giscus.category && !!giscus.categoryId;
+const configured =
+	!!giscus.repo && !!giscus.repoId && !!giscus.category && !!giscus.categoryId;
 const enabled = commentConfig.enable && configured;
 ---
 

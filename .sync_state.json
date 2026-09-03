@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "files": {
+    "Vault死链治理与单向推导架构维护复盘.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/Vault死链治理与单向推导架构维护复盘.md",
+      "target_file": "Vault死链治理与单向推导架构维护复盘.md",
+      "source_sha256": "603909eccdd2fba78e56a0eab505ac753ac7542c01674f478f5e765073ae1b31",
+      "last_synced_at": "2026-09-03T16:30:01.224712"
+    },
+    "《未来世界的幸存者》读书笔记.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/《未来世界的幸存者》读书笔记.md",
+      "target_file": "《未来世界的幸存者》读书笔记.md",
+      "source_sha256": "97be41f8bb350321461ab3004c2ac78678da2a31f6f70aa64bead969bb0f7f03",
+      "last_synced_at": "2026-09-02T23:33:01.506164"
+    },
+    "读论文：.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/读论文：.md",
+      "target_file": "读论文：.md",
+      "source_sha256": "503006669b946c0803262cdb9a49ac2389b59cf6860cb550f80ac47890536d87",
+      "last_synced_at": "2026-09-02T23:32:34.333855"
+    },
+    "读论文：JITRL.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/读论文：JITRL.md",
+      "target_file": "读论文：JITRL.md",
+      "source_sha256": "879cdaefbd86f6ee35a7077e1b4b83be7ae41f85f789045d832044db96184982",
+      "last_synced_at": "2026-09-02T23:41:01.110599"
+    },
+    "《未来世界的幸存者》摘录.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/《未来世界的幸存者》摘录.md",
+      "target_file": "《未来世界的幸存者》摘录.md",
+      "source_sha256": "b77fafcfdc39ecdf1a31d2ec5348b025b8b3facdced2ee03402d8c44966067a3",
+      "last_synced_at": "2026-09-03T16:30:01.225225"
+    },
+    "知识图谱降噪与实体收敛指南.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/知识图谱降噪与实体收敛指南.md",
+      "target_file": "知识图谱降噪与实体收敛指南.md",
+      "source_sha256": "6d87a8445c487744aa02f94bb3a1634c90f2dd6c8630865ea8ce8d2f44dda07d",
+      "last_synced_at": "2026-09-03T16:30:01.225868"
+    },
+    "读论文：JitRL.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/读论文：JitRL.md",
+      "target_file": "读论文：JitRL.md",
+      "source_sha256": "eb3bf896927c25406d6a37dfac959c1275efc6d4c28bed05661977617eecf5dd",
+      "last_synced_at": "2026-09-03T16:30:01.226372"
+    }
+  }
+}

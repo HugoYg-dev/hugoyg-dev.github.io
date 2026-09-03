@@ -96,8 +96,64 @@ draft: false
 | `pnpm build` | 静态编译生成产物并构建 Pagefind 搜索索引 |
 | `pnpm preview` | 本地预览构建产物（含搜索功能） |
 | `pnpm new-post <name>` | 快速创建新文章模板 |
+| `pnpm sync:kb` | 从 Obsidian 知识库增量同步文章与配图 |
+| `pnpm sync:kb:watch` | 实时监听 Obsidian 知识库变动并自动同步 |
+| `pnpm sync:cnblogs` | 将博客文章增量同步/发布至博客园 (Cnblogs) |
 | `pnpm lint` / `pnpm format` | 使用 Biome 进行代码检查与格式化 |
 | `pnpm type-check` | TypeScript 类型检查 |
+
+---
+
+## 🔄 内容自动化工作流
+
+### 1. 知识库 (Obsidian Vault) 自动同步
+
+文章优先在个人知识库（Obsidian Vault）的 `raw/out-blogs/` 中撰写，通过内置的 Python 转换管道自动同步至本站：
+
+```bash
+# 增量同步（自动比对 Hash）
+pnpm sync:kb
+
+# 启动文件变动监听模式
+pnpm sync:kb:watch
+
+# 演练预览模式（不写入文件）
+pnpm sync:kb --dry-run
+
+# 强制全量重新同步
+pnpm sync:kb --force
+```
+
+**管线特性**：
+- **Frontmatter 校验与清洗**：自动补齐并规范化 `title`、`published`、`tags` 等符合 Astro Fuwari Schema 的字段。
+- **WikiLinks 解链**：自动将 `[[概念\|别名]]` 或 `[[概念]]` 解构为标准文本，保障独立站点渲染。
+- **图片与附件自动化**：自动定位 Obsidian `assets/` 附件库中的配图，安全复制至博客 `public/posts/assets/` 并重写路径。
+
+### 2. 博客园 (Cnblogs) 自动分发
+
+基于博客园标准 MetaWeblog (XML-RPC) 协议，一键将本站文章增量分发与更新至博客园：
+
+```bash
+# 查看本地文章与博客园同步状态映射
+pnpm sync:cnblogs --status
+
+# 演练预览（无需凭证）
+pnpm sync:cnblogs --dry-run
+
+# 测试 API 凭证连接
+pnpm sync:cnblogs --test-auth
+
+# 增量同步所有文章
+pnpm sync:cnblogs
+
+# 同步指定单篇文章
+pnpm sync:cnblogs --file hello-world.md
+```
+
+**前置配置**：
+复制 `.env.example` 为 `.env`，并在博客园后台（设置 -> 博客设置）开启 MetaWeblog 并获取访问令牌后填入。
+- **图床自动转存**：自动提取文章中的本地配图并上传至博客园官方图床（`newMediaObject`），替换为防盗链有效的 CDN 链接。
+- **增量防重机制**：本地 `.cnblogs_sync.json` 自动记录 PostID 与内容哈希，文章二次修改后自动调用 `editPost` 更新对应博文。
 
 ---
 
