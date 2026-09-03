@@ -2,7 +2,7 @@
 title: Hello World
 published: 2026-08-31
 description: "博客的第一篇文章：这个站点是如何搭建的。"
-tags: ["博客", "Astro"]
+tags: []
 category: 站点
 draft: false
 ---
