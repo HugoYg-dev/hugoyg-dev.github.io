@@ -1,5 +1,5 @@
 ## BUG
-[x] 评论功能失效：错误：giscus is not installed on this repository
+
 
 ## FEATURE
 [x] 和个人知识库的文章自动同步。文章优先产出在obsidian vault内(/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs), 设置一个自动同步方案，将文章发表到博客站
@@ -12,3 +12,4 @@
 [x] 移除主题色更改按钮，固定使用默认色
 [x] 完善README，扩充现有章节的内容，需要详细说明
 [x] 给远程repo改一个名字 (blogs)
+[x] 移除分类功能，只保留文章标签
