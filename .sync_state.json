@@ -4,8 +4,8 @@
     "Vault死链治理与单向推导架构维护复盘.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/Vault死链治理与单向推导架构维护复盘.md",
       "target_file": "Vault死链治理与单向推导架构维护复盘.md",
-      "source_sha256": "603909eccdd2fba78e56a0eab505ac753ac7542c01674f478f5e765073ae1b31",
-      "last_synced_at": "2026-09-03T16:30:01.224712"
+      "source_sha256": "70cbab32f7650d1a1e2d98a02df0e20e12170267e3dfea9c68931934a3c2a51a",
+      "last_synced_at": "2026-10-26T10:31:50.589836"
     },
     "《未来世界的幸存者》读书笔记.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/《未来世界的幸存者》读书笔记.md",
@@ -40,8 +40,20 @@
     "读论文：JitRL.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/读论文：JitRL.md",
       "target_file": "读论文：JitRL.md",
-      "source_sha256": "eb3bf896927c25406d6a37dfac959c1275efc6d4c28bed05661977617eecf5dd",
-      "last_synced_at": "2026-09-03T16:30:01.226372"
+      "source_sha256": "81e643b891979fc05f1ad078a8c22cd4f99e8e50d51ee6031c47dc41d5b3647b",
+      "last_synced_at": "2026-10-26T10:31:50.593382"
+    },
+    "既然Logits排序与Softmax完全一致_为什么还需要算Softmax.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/既然Logits排序与Softmax完全一致_为什么还需要算Softmax.md",
+      "target_file": "既然Logits排序与Softmax完全一致_为什么还需要算Softmax.md",
+      "source_sha256": "ad7c78992ac1670381d099d3e4737dbfd5a786c402aa9accfe7166c074200d1e",
+      "last_synced_at": "2026-10-26T10:31:50.591273"
+    },
+    "给语言模型装一个动态分类头.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/给语言模型装一个动态分类头.md",
+      "target_file": "给语言模型装一个动态分类头.md",
+      "source_sha256": "43840fbdd64145a822a43ca76af993779a2d5ab4dc223f9479d22957340290ad",
+      "last_synced_at": "2026-10-26T10:31:50.592452"
     }
   }
 }
