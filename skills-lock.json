@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "skills": {
+    "mp-article-writor": {
+      "source": "balabalabalading/huuuuuuho-skills",
+      "sourceType": "github",
+      "skillPath": "skills/mp-article-writor/SKILL.md",
+      "computedHash": "819e0a358c5eb581f4dbadc8ca8d92b6b317c3a54774d6bf30993a4e3b2950a9"
+    }
+  }
+}
