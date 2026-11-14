@@ -2,8 +2,6 @@
 import type { CollectionEntry } from "astro:content";
 import path from "node:path";
 import { Icon } from "astro-icon/components";
-import I18nKey from "../i18n/i18nKey";
-import { i18n } from "../i18n/translation";
 import { getDir } from "../utils/url-utils";
 import ImageWrapper from "./misc/ImageWrapper.astro";
 import PostMetadata from "./PostMeta.astro";
@@ -58,19 +56,8 @@ const { remarkPluginFrontmatter } = await entry.render();
         <PostMetadata published={published} updated={updated} tags={tags} hideTagsForMobile={true} hideUpdateDate={true} compact={true} class="mb-2"></PostMetadata>
 
         <!-- description -->
-        <div class="transition text-75 text-sm leading-relaxed mb-2.5 line-clamp-2 pr-2">
+        <div class="transition text-75 text-sm leading-relaxed line-clamp-2 pr-2">
             { description || remarkPluginFrontmatter.excerpt }
-        </div>
-
-        <!-- word count and read time  -->
-        <div class="text-xs text-black/35 dark:text-white/35 flex items-center gap-3 transition">
-            <div>
-                {remarkPluginFrontmatter.words} {" " + i18n(remarkPluginFrontmatter.words === 1 ? I18nKey.wordCount : I18nKey.wordsCount)}
-            </div>
-            <div class="text-black/15 dark:text-white/15">|</div>
-            <div>
-                {remarkPluginFrontmatter.minutes} {" " + i18n(remarkPluginFrontmatter.minutes === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)}
-            </div>
         </div>
 
     </div>
