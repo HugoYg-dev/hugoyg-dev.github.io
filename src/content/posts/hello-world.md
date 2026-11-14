@@ -1,26 +1,20 @@
 ---
 title: Hello World
 published: 2026-08-31
-description: "博客的第一篇文章：这个站点是如何搭建的。"
+description: "博客的第一篇文章，简单记录这个站点的技术构成与后续写作方向。"
 tags: []
 category: 站点
 draft: false
 ---
 
-欢迎来到我的博客！这是本站的第一篇文章。
+这是我博客的第一篇文章。这个站点基于 [Astro](https://astro.build/) 静态框架和 [Fuwari](https://github.com/saicaca/fuwari) 主题搭建，托管在 GitHub Pages 上。
 
-## 这个站点是怎么搭的
+## 这个博客用了什么
 
-本站基于 [Astro](https://astro.build/) 静态站点框架和 [Fuwari](https://github.com/saicaca/fuwari) 主题搭建，托管在 GitHub Pages 上：
+平时写作只需要把 Markdown 文件放进 `src/content/posts/` 目录，推送到 GitHub 后由 GitHub Actions 自动构建并发布，大约一两分钟就会生效。
 
-- **写作**：所有文章都是 Markdown 文件，放在 `src/content/posts/` 目录下
-- **搜索**：Pagefind 提供的纯静态全文搜索，无需任何服务端
-- **评论**：基于 GitHub Discussions 的 [giscus](https://giscus.app/) 评论系统
-- **订阅**：站点提供 RSS 输出，可用任意 RSS 阅读器订阅
-- **部署**：推送到 GitHub 后，GitHub Actions 自动构建并发布，约 1–2 分钟生效
+站内的纯静态全文搜索交给 Pagefind，不需要服务端；评论系统接了基于 GitHub Discussions 的 [giscus](https://giscus.app/)，同时站点也提供 RSS 输出，用常规阅读器就能订阅。
 
-## 我会写什么
+## 后面打算写什么
 
-主要是技术笔记、开发中踩过的坑，偶尔也有一些生活记录。
-
-感谢阅读，欢迎常来。
+主要记录技术笔记和开发时踩过的坑，偶尔也会写一点生活记录。

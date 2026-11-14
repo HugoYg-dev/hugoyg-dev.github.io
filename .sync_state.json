@@ -4,8 +4,8 @@
     "Vault死链治理与单向推导架构维护复盘.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/Vault死链治理与单向推导架构维护复盘.md",
       "target_file": "Vault死链治理与单向推导架构维护复盘.md",
-      "source_sha256": "3e8fbed6b3e9d1415a81780e4b48448dd72ef2275919b4c295a66a35a0a62f65",
-      "last_synced_at": "2026-10-28T01:12:18.092462"
+      "source_sha256": "aabc5835d1d538cf446d35ad12abcd0edcb4e05c568b8b7f7a31e61bc7f0357d",
+      "last_synced_at": "2026-11-14T12:40:26.199147"
     },
     "《未来世界的幸存者》读书笔记.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/《未来世界的幸存者》读书笔记.md",
@@ -28,38 +28,38 @@
     "《未来世界的幸存者》摘录.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/《未来世界的幸存者》摘录.md",
       "target_file": "《未来世界的幸存者》摘录.md",
-      "source_sha256": "448b5684716e96c1988a955ae1223ba0555615f50f9d5713db94f52cc807dcfa",
-      "last_synced_at": "2026-10-28T01:06:52.251310"
+      "source_sha256": "157a19ecaae02be06e19234b6d71056f77250360003c52b084ed36c46d84d6f7",
+      "last_synced_at": "2026-11-14T12:40:26.199902"
     },
     "知识图谱降噪与实体收敛指南.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/知识图谱降噪与实体收敛指南.md",
       "target_file": "知识图谱降噪与实体收敛指南.md",
-      "source_sha256": "a9be017a8f5c29e45eb6b334a26d893ea84f4e47b58fe6875154be676785d729",
-      "last_synced_at": "2026-10-28T01:12:18.094430"
+      "source_sha256": "62d89d533b4ab2165bd65cec90d55a27543d19e6a2f609754b0c24c82892bb65",
+      "last_synced_at": "2026-11-14T12:40:26.202650"
     },
     "读论文：JitRL.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/读论文：JitRL.md",
       "target_file": "读论文：JitRL.md",
-      "source_sha256": "81e643b891979fc05f1ad078a8c22cd4f99e8e50d51ee6031c47dc41d5b3647b",
-      "last_synced_at": "2026-10-26T10:31:50.593382"
+      "source_sha256": "830366bc3396dda08472f3e8ad2b8e26bb0387ff9b3a3af8c10bf1a1cc839b19",
+      "last_synced_at": "2026-11-14T12:40:26.205663"
     },
     "既然Logits排序与Softmax完全一致_为什么还需要算Softmax.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/既然Logits排序与Softmax完全一致_为什么还需要算Softmax.md",
       "target_file": "既然Logits排序与Softmax完全一致_为什么还需要算Softmax.md",
-      "source_sha256": "ad7c78992ac1670381d099d3e4737dbfd5a786c402aa9accfe7166c074200d1e",
-      "last_synced_at": "2026-10-26T10:31:50.591273"
+      "source_sha256": "641ac5b1613878ae251d1986043e308aeadadf342b292fbe1803e356f7a4fd53",
+      "last_synced_at": "2026-11-14T12:40:26.201899"
     },
     "给语言模型装一个动态分类头.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/给语言模型装一个动态分类头.md",
       "target_file": "给语言模型装一个动态分类头.md",
-      "source_sha256": "43840fbdd64145a822a43ca76af993779a2d5ab4dc223f9479d22957340290ad",
-      "last_synced_at": "2026-10-26T10:31:50.592452"
+      "source_sha256": "a8069c7b25beaef3334b6b6191dea5e0ad3935cd4b6cfe2116d2e8faa73d842d",
+      "last_synced_at": "2026-11-14T12:40:26.204206"
     },
     "决策模型的概率校准、置信度级联与端侧平替账单.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/决策模型的概率校准、置信度级联与端侧平替账单.md",
       "target_file": "决策模型的概率校准、置信度级联与端侧平替账单.md",
-      "source_sha256": "767fc734868f36e2dc4492c079cab3b02f6b9edef443db88d95994c992374f66",
-      "last_synced_at": "2026-11-02T18:13:53.818012"
+      "source_sha256": "141d4dfab86d699797e882cdfffc9a56089ee225e1ba319cb6e8623819cb45eb",
+      "last_synced_at": "2026-11-14T12:40:26.201007"
     }
   }
 }
