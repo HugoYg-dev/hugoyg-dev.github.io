@@ -2,9 +2,7 @@
 title: 既然 Logits 排序与 Softmax 完全一致，为什么我们还需要算 Softmax？
 published: 2026-09-23
 description: 揭示深度学习体系中数学直觉与工程实践的反差，从严格单调性出发，拆解模型训练、大模型采样生成、工业推理优化与现实决策对 Softmax 的工程依赖。
-tags:
-- LLM/inference
-- LLM/arch
+tags: []
 category: ''
 draft: false
 ---

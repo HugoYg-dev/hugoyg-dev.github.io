@@ -20,7 +20,7 @@ import sys
 import time
 from datetime import date, datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 import yaml
 
 try:
@@ -32,6 +32,7 @@ except ImportError:
 # 默认路径配置
 DEFAULT_SOURCE_DIR = Path("/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs")
 DEFAULT_ASSETS_DIR = Path("/Users/ZHao/WorkSpace/knowledge-bank/assets")
+DEFAULT_KB_TAGS_FILE = Path("/Users/ZHao/WorkSpace/knowledge-bank/tags.json")
 DEFAULT_TARGET_POSTS_DIR = Path(__file__).resolve().parent.parent / "src" / "content" / "posts"
 DEFAULT_TARGET_ASSETS_DIR = Path(__file__).resolve().parent.parent / "public" / "posts" / "assets"
 DEFAULT_STATE_FILE = Path(__file__).resolve().parent.parent / ".sync_state.json"
@@ -94,10 +95,74 @@ def parse_date_obj(val: Any) -> date:
     return date.today()
 
 
+def load_kb_tags(kb_tags_file: Optional[Path] = None) -> Set[str]:
+    """从 knowledge-bank/tags.json 加载知识库标签集合（博客标签不得与之重合）。"""
+    if kb_tags_file is None:
+        return set()
+    if not kb_tags_file.exists():
+        print(f"[WARN] 未找到知识库标签文件 {kb_tags_file}，将跳过知识库标签过滤。")
+        return set()
+
+    try:
+        with open(kb_tags_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception as e:
+        print(f"[WARN] 读取知识库标签文件 {kb_tags_file} 失败: {e}，将跳过知识库标签过滤。")
+        return set()
+
+    kb_tags: Set[str] = set()
+    for t in data.get("top_level_tags", []):
+        if isinstance(t, str) and t.strip():
+            kb_tags.add(t.strip())
+
+    for branch, branch_data in data.get("branches", {}).items():
+        if isinstance(branch, str) and branch.strip():
+            branch_name = branch.strip()
+            kb_tags.add(branch_name)
+            if isinstance(branch_data, dict):
+                for leaf in branch_data.get("leaves", []):
+                    if isinstance(leaf, str) and leaf.strip():
+                        kb_tags.add(f"{branch_name}/{leaf.strip()}")
+                for ml in branch_data.get("multi_level", []):
+                    if isinstance(ml, str) and ml.strip():
+                        kb_tags.add(f"{branch_name}/{ml.strip()}")
+
+    return kb_tags
+
+
+def normalize_tag_list(raw_tags: Any) -> List[str]:
+    """将 YAML 中的 tags 字段规范化为去重后的字符串列表。"""
+    tags: List[str] = []
+    if isinstance(raw_tags, str):
+        raw_tags = [raw_tags]
+    if isinstance(raw_tags, list):
+        for t in raw_tags:
+            if t is not None:
+                t_str = str(t).strip().lstrip("#")
+                if t_str and t_str not in tags:
+                    tags.append(t_str)
+    return tags
+
+
+def extract_existing_blog_tags(target_file: Path, kb_tags: Optional[Set[str]] = None) -> List[str]:
+    """从已存在的博客文章中读取非知识库标签，用于在同步时保留博客侧手动维护的标签。"""
+    if not target_file.exists():
+        return []
+    try:
+        content = target_file.read_text(encoding="utf-8-sig")
+    except Exception:
+        return []
+    fm, _ = parse_frontmatter_and_body(content)
+    kb_tags_lower = {t.strip().lower() for t in (kb_tags or set()) if t and t.strip()}
+    return [t for t in normalize_tag_list(fm.get("tags", [])) if t.lower() not in kb_tags_lower]
+
+
 def sanitize_frontmatter(
     fm: Dict[str, Any],
     body: str,
-    file_path: Path
+    file_path: Path,
+    kb_tags: Optional[Set[str]] = None,
+    existing_tags: Optional[List[str]] = None,
 ) -> Tuple[Dict[str, Any], str]:
     """
     清洗并规范化 Frontmatter 以符合 Fuwari / Astro 的 Zod Schema:
@@ -143,17 +208,23 @@ def sanitize_frontmatter(
         desc = ""
     description = str(desc).strip()
 
-    # 6. 提取 tags
-    raw_tags = fm.get("tags", [])
+    # 6. 提取 tags（自动过滤 knowledge-bank 标签，严禁博客标签与知识库重合）
+    parsed_tags = normalize_tag_list(fm.get("tags", []))
+    kb_tags_lower = {t.strip().lower() for t in (kb_tags or set()) if t and t.strip()}
     tags: List[str] = []
-    if isinstance(raw_tags, str):
-        raw_tags = [raw_tags]
-    if isinstance(raw_tags, list):
-        for t in raw_tags:
-            if t is not None:
-                t_str = str(t).strip().lstrip("#")
-                if t_str and t_str not in tags:
-                    tags.append(t_str)
+    filtered_kb_tags: List[str] = []
+    for t_str in parsed_tags:
+        if t_str.lower() in kb_tags_lower:
+            filtered_kb_tags.append(t_str)
+        else:
+            tags.append(t_str)
+
+    if filtered_kb_tags:
+        print(f"  [WARN] 已过滤知识库标签（不得与 knowledge-bank 相同）: {filtered_kb_tags}")
+
+    if not tags and existing_tags:
+        tags = list(existing_tags)
+        print(f"  [INFO] 保留博客侧已有标签: {tags}")
 
     # 7. 提取 category
     category = fm.get("category", "")
@@ -317,7 +388,8 @@ def sync_single_file(
     target_assets_dir: Path,
     state: Dict[str, Any],
     force: bool = False,
-    dry_run: bool = False
+    dry_run: bool = False,
+    kb_tags: Optional[Set[str]] = None,
 ) -> bool:
     """同步单个 Markdown 文件。返回是否有更新。"""
     try:
@@ -336,8 +408,17 @@ def sync_single_file(
 
     print(f"[SYNC] 正在处理: {source_file.name}")
 
+    target_file = target_posts_dir / source_file.name
+    existing_tags = extract_existing_blog_tags(target_file, kb_tags=kb_tags)
+
     fm, raw_body = parse_frontmatter_and_body(raw_content)
-    clean_fm, title = sanitize_frontmatter(fm, raw_body, source_file)
+    clean_fm, title = sanitize_frontmatter(
+        fm,
+        raw_body,
+        source_file,
+        kb_tags=kb_tags,
+        existing_tags=existing_tags,
+    )
     clean_body = transform_body(
         body=raw_body,
         title=title,
@@ -355,8 +436,6 @@ def sync_single_file(
         default_flow_style=False
     ).strip()
     target_content = f"---\n{fm_yaml}\n---\n\n{clean_body}"
-
-    target_file = target_posts_dir / source_file.name
 
     if dry_run:
         print(f"  [DRY-RUN] 将写入: {target_file}")
@@ -384,13 +463,15 @@ def run_sync(
     target_assets_dir: Path,
     state_file: Path,
     force: bool = False,
-    dry_run: bool = False
+    dry_run: bool = False,
+    kb_tags_file: Optional[Path] = DEFAULT_KB_TAGS_FILE,
 ) -> int:
     """执行同步流程，返回同步更新的文件数。"""
     if not source_dir.exists():
         print(f"[ERROR] 知识库源目录不存在: {source_dir}")
         return 0
 
+    kb_tags = load_kb_tags(kb_tags_file)
     state = load_state(state_file)
     md_files = sorted(list(source_dir.glob("*.md")) + list(source_dir.glob("*.mdx")))
 
@@ -409,7 +490,8 @@ def run_sync(
             target_assets_dir=target_assets_dir,
             state=state,
             force=force,
-            dry_run=dry_run
+            dry_run=dry_run,
+            kb_tags=kb_tags,
         )
         if updated:
             updated_count += 1
@@ -427,19 +509,20 @@ def watch_and_sync(
     target_posts_dir: Path,
     target_assets_dir: Path,
     state_file: Path,
-    interval_seconds: float = 2.0
+    interval_seconds: float = 2.0,
+    kb_tags_file: Optional[Path] = DEFAULT_KB_TAGS_FILE,
 ) -> None:
     """轮询监听模式：实时监听源目录变动并自动触发增量同步。"""
     print(f"[WATCH] 已启动监听模式，正在监控: {source_dir} (轮询间隔: {interval_seconds}s)")
     print("[WATCH] 按 Ctrl+C 退出监听。")
 
     # 首次执行一次全量增量检查
-    run_sync(source_dir, assets_dir, target_posts_dir, target_assets_dir, state_file)
+    run_sync(source_dir, assets_dir, target_posts_dir, target_assets_dir, state_file, kb_tags_file=kb_tags_file)
 
     try:
         while True:
             time.sleep(interval_seconds)
-            run_sync(source_dir, assets_dir, target_posts_dir, target_assets_dir, state_file)
+            run_sync(source_dir, assets_dir, target_posts_dir, target_assets_dir, state_file, kb_tags_file=kb_tags_file)
     except KeyboardInterrupt:
         print("\n[WATCH] 已停止监听。")
 
@@ -469,6 +552,12 @@ def main() -> None:
         type=Path,
         default=DEFAULT_TARGET_ASSETS_DIR,
         help=f"博客附件目标目录 (默认: {DEFAULT_TARGET_ASSETS_DIR})"
+    )
+    parser.add_argument(
+        "--kb-tags",
+        type=Path,
+        default=Path(os.getenv("KB_TAGS_FILE", str(DEFAULT_KB_TAGS_FILE))),
+        help=f"knowledge-bank 标签配置文件路径 (默认: {DEFAULT_KB_TAGS_FILE})"
     )
     parser.add_argument(
         "--state-file",
@@ -502,6 +591,7 @@ def main() -> None:
             target_posts_dir=args.target_posts,
             target_assets_dir=args.target_assets,
             state_file=args.state_file,
+            kb_tags_file=args.kb_tags,
         )
     else:
         run_sync(
@@ -512,6 +602,7 @@ def main() -> None:
             state_file=args.state_file,
             force=args.force,
             dry_run=args.dry_run,
+            kb_tags_file=args.kb_tags,
         )
 
 
