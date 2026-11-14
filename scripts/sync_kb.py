@@ -23,6 +23,11 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 import yaml
 
+try:
+    from md_utils import replace_markdown_images, transform_outside_code
+except ImportError:
+    from scripts.md_utils import replace_markdown_images, transform_outside_code
+
 
 # 默认路径配置
 DEFAULT_SOURCE_DIR = Path("/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs")
@@ -37,7 +42,6 @@ RE_DATE = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
 RE_H1_FIRST = re.compile(r"^#\s+(.+)$", re.MULTILINE)
 RE_H1_LINE = re.compile(r"^#\s+(.+)$")
 RE_WIKI_IMAGE = re.compile(r"!\[\[([^|\]]+)(?:\|([^\]]+))?\]\]")
-RE_MD_IMAGE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
 RE_WIKILINK = re.compile(r"\[\[([^|\]]+)(?:\|([^\]]+))?\]\]")
 
 
@@ -273,7 +277,14 @@ def transform_body(
 
     text = "\n".join(clean_lines).strip()
 
-    # 2. 处理 Obsidian 图片引用: ![[image.png]] 或 ![[image.png|alt text]]
+    # 2–4. 处理标准 Markdown 图片、Obsidian 图片引用及 WikiLinks（跳过代码块与行内反引号）
+    def replace_md_image(_alt: str, url: str) -> Optional[str]:
+        # 跳过网络链接或绝对路径
+        if url.startswith(("http://", "https://", "/", "data:")):
+            return None
+        # 本地相对路径
+        return find_and_copy_asset(url, source_md_path.parent, kb_assets_dir, target_assets_dir, dry_run)
+
     def replace_wiki_image(match: re.Match) -> str:
         raw_target = match.group(1).strip()
         alias = match.group(2).strip() if match.group(2) else ""
@@ -283,30 +294,18 @@ def transform_body(
             return f"![{alt}]({new_url})"
         return f"![{alt}]({raw_target})"
 
-    text = RE_WIKI_IMAGE.sub(replace_wiki_image, text)
-
-    # 3. 处理标准 Markdown 图片: ![alt](../assets/img.png) 或 ![alt](img.png)
-    def replace_md_image(match: re.Match) -> str:
-        alt = match.group(1)
-        url = match.group(2).strip()
-        # 跳过网络链接或绝对路径
-        if url.startswith(("http://", "https://", "/", "data:")):
-            return match.group(0)
-        # 本地相对路径
-        new_url = find_and_copy_asset(url, source_md_path.parent, kb_assets_dir, target_assets_dir, dry_run)
-        if new_url:
-            return f"![{alt}]({new_url})"
-        return match.group(0)
-
-    text = RE_MD_IMAGE.sub(replace_md_image, text)
-
-    # 4. 处理 WikiLinks: [[Target|Alias]] -> Alias, [[Target]] -> Target
     def replace_wikilink(match: re.Match) -> str:
         target = match.group(1).strip()
         alias = match.group(2).strip() if match.group(2) else ""
         return alias if alias else target
 
-    text = RE_WIKILINK.sub(replace_wikilink, text)
+    def transform_prose(prose: str) -> str:
+        prose = replace_markdown_images(prose, replace_md_image)
+        prose = RE_WIKI_IMAGE.sub(replace_wiki_image, prose)
+        prose = RE_WIKILINK.sub(replace_wikilink, prose)
+        return prose
+
+    text = transform_outside_code(text, transform_prose)
 
     return text + "\n"
 

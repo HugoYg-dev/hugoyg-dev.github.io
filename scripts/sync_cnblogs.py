@@ -27,6 +27,19 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 import yaml
 from dotenv import load_dotenv
 
+try:
+    from md_utils import (
+        replace_markdown_images,
+        replace_markdown_links,
+        transform_outside_code,
+    )
+except ImportError:
+    from scripts.md_utils import (
+        replace_markdown_images,
+        replace_markdown_links,
+        transform_outside_code,
+    )
+
 
 BLOG_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_POSTS_DIR = BLOG_ROOT / "src" / "content" / "posts"
@@ -34,9 +47,10 @@ DEFAULT_PUBLIC_DIR = BLOG_ROOT / "public"
 DEFAULT_SYNC_STATE_FILE = BLOG_ROOT / ".cnblogs_sync.json"
 KB_ASSETS_DIR = Path("/Users/ZHao/WorkSpace/knowledge-bank/assets")
 
+BLOG_BASE_URL = "https://hugoyg-dev.github.io"
+
 # 预编译正则表达式常量
 RE_FRONTMATTER = re.compile(r"^\s*---\r?\n(.*?)\r?\n---\s*(?:\r?\n|$)(.*)", re.DOTALL)
-RE_MD_IMAGE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
 
 
 def retry_rpc(
@@ -282,36 +296,50 @@ def process_and_upload_images(
     state: Dict[str, Any],
     dry_run: bool = False
 ) -> str:
-    """提取文章中的本地图片，上传至博客园图床并替换正文中的链接。"""
+    """提取文章中的本地图片，上传至博客园图床并替换正文中的链接（跳过代码块与行内反引号）。"""
     media_cache = state.setdefault("media", {})
 
-    def replace_image(match: re.Match) -> str:
-        alt = match.group(1)
-        url = match.group(2).strip()
-
+    def replace_image(alt: str, url: str) -> Optional[str]:
         local_img = resolve_local_image_path(url, post_file)
         if not local_img:
-            return match.group(0)
+            return None
 
         # 计算图片哈希以使用图床缓存
         img_hash = compute_file_sha256(local_img)
         if img_hash in media_cache:
-            remote_url = media_cache[img_hash]
-            return f"![{alt}]({remote_url})"
+            return media_cache[img_hash]
 
         if dry_run or client is None:
             print(f"  [DRY-RUN MEDIA] 将上传本地图片: {local_img.name}")
-            return match.group(0)
+            return None
 
         remote_url = client.upload_media(local_img)
         if remote_url:
             media_cache[img_hash] = remote_url
-            return f"![{alt}]({remote_url})"
+            return remote_url
 
-        return match.group(0)
+        return None
 
-    # 替换 Markdown 图片语法
-    return RE_MD_IMAGE.sub(replace_image, body)
+    # 替换 Markdown 图片语法（保护代码块与行内代码）
+    return transform_outside_code(
+        body,
+        lambda prose: replace_markdown_images(prose, replace_image),
+    )
+
+
+def rewrite_internal_links(body: str, base_url: str = BLOG_BASE_URL) -> str:
+    """将站内根相对路径链接（如 /posts/.../）重写为完整博客域名 URL，避免在博客园出现 404。"""
+    base = base_url.rstrip("/")
+
+    def replace_link(_label: str, path: str) -> Optional[str]:
+        if path.startswith("/") and not path.startswith("//"):
+            return f"{base}{path}"
+        return None
+
+    return transform_outside_code(
+        body,
+        lambda prose: replace_markdown_links(prose, replace_link),
+    )
 
 
 def sync_single_post(
@@ -350,7 +378,7 @@ def sync_single_post(
     action = "更新" if existing_post_id else "发布"
     print(f"[SYNC CNBLOGS] 准备{action}: {post_file.name} -> 《{title}》 (PostID: {existing_post_id or '新文章'})")
 
-    # 处理图片转存
+    # 处理图片转存与站内相对链接重写
     processed_body = process_and_upload_images(
         body=body,
         post_file=post_file,
@@ -358,6 +386,7 @@ def sync_single_post(
         state=state,
         dry_run=dry_run
     )
+    processed_body = rewrite_internal_links(processed_body)
 
     tags = fm.get("tags", [])
     if isinstance(tags, str):
