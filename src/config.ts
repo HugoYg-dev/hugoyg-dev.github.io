@@ -89,7 +89,7 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 export const commentConfig: CommentConfig = {
 	enable: true,
 	giscus: {
-		repo: "HugoYg-dev/blogs",
+		repo: "HugoYg-dev/hugoyg-dev.github.io",
 		repoId: "R_kgDOUJUbVg",
 		category: "Announcements",
 		categoryId: "DIC_kwDOUJUbVs4DEjQt",
