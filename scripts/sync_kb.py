@@ -176,15 +176,8 @@ def sanitize_frontmatter(
     category: string (optional)
     lang: string (optional)
     """
-    # 1. 提取 title
-    title = fm.get("title")
-    if not title:
-        # 尝试从正文首行 # 提取
-        h1_match = RE_H1_FIRST.search(body.strip())
-        if h1_match:
-            title = h1_match.group(1).strip()
-        else:
-            title = file_path.stem
+    # 1. 提取 title（强制与源文件名 stem 保持 1:1 完全一致，确保 博客标题 == kb filename == blog filename）
+    title = file_path.stem
 
     # 2. 提取 published
     raw_pub = fm.get("published") or fm.get("created")

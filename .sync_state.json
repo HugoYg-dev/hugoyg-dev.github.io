@@ -1,65 +1,53 @@
 {
   "version": 1,
   "files": {
-    "Vault死链治理与单向推导架构维护复盘.md": {
-      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/Vault死链治理与单向推导架构维护复盘.md",
-      "target_file": "Vault死链治理与单向推导架构维护复盘.md",
-      "source_sha256": "aabc5835d1d538cf446d35ad12abcd0edcb4e05c568b8b7f7a31e61bc7f0357d",
-      "last_synced_at": "2026-11-14T12:40:26.199147"
-    },
-    "《未来世界的幸存者》读书笔记.md": {
-      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/《未来世界的幸存者》读书笔记.md",
-      "target_file": "《未来世界的幸存者》读书笔记.md",
-      "source_sha256": "97be41f8bb350321461ab3004c2ac78678da2a31f6f70aa64bead969bb0f7f03",
-      "last_synced_at": "2026-09-02T23:33:01.506164"
-    },
-    "读论文：.md": {
-      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/读论文：.md",
-      "target_file": "读论文：.md",
-      "source_sha256": "503006669b946c0803262cdb9a49ac2389b59cf6860cb550f80ac47890536d87",
-      "last_synced_at": "2026-09-02T23:32:34.333855"
-    },
-    "读论文：JITRL.md": {
-      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/读论文：JITRL.md",
-      "target_file": "读论文：JITRL.md",
-      "source_sha256": "879cdaefbd86f6ee35a7077e1b4b83be7ae41f85f789045d832044db96184982",
-      "last_synced_at": "2026-09-02T23:41:01.110599"
-    },
     "《未来世界的幸存者》摘录.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/《未来世界的幸存者》摘录.md",
       "target_file": "《未来世界的幸存者》摘录.md",
-      "source_sha256": "157a19ecaae02be06e19234b6d71056f77250360003c52b084ed36c46d84d6f7",
-      "last_synced_at": "2026-11-14T12:40:26.199902"
+      "source_sha256": "dc8be9b3abf7fb1c16242ea67798aa80591a479996628c3ecacd5b74bc5f5809",
+      "last_synced_at": "2026-11-24T17:53:55.827054"
     },
-    "知识图谱降噪与实体收敛指南.md": {
-      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/知识图谱降噪与实体收敛指南.md",
-      "target_file": "知识图谱降噪与实体收敛指南.md",
-      "source_sha256": "62d89d533b4ab2165bd65cec90d55a27543d19e6a2f609754b0c24c82892bb65",
-      "last_synced_at": "2026-11-14T12:40:26.202650"
+    "决策模型（一）给语言模型装一个动态分类头.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/决策模型（一）给语言模型装一个动态分类头.md",
+      "target_file": "决策模型（一）给语言模型装一个动态分类头.md",
+      "source_sha256": "03b2ee5446f8d579ce383177706e427deff748f0d55b26e08e13b4037c3b9ce9",
+      "last_synced_at": "2026-11-24T17:53:55.830955"
     },
-    "读论文：JitRL.md": {
-      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/读论文：JitRL.md",
-      "target_file": "读论文：JitRL.md",
-      "source_sha256": "830366bc3396dda08472f3e8ad2b8e26bb0387ff9b3a3af8c10bf1a1cc839b19",
-      "last_synced_at": "2026-11-14T12:40:26.205663"
+    "决策模型（二）概率校准、置信度级联与端侧平替账单.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/决策模型（二）概率校准、置信度级联与端侧平替账单.md",
+      "target_file": "决策模型（二）概率校准、置信度级联与端侧平替账单.md",
+      "source_sha256": "8c3534877085e79cd350ae1f2fbe248fe2c236b4a7f0d05af871e07b742fa540",
+      "last_synced_at": "2026-11-24T17:53:55.834158"
     },
-    "既然Logits排序与Softmax完全一致_为什么还需要算Softmax.md": {
-      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/既然Logits排序与Softmax完全一致_为什么还需要算Softmax.md",
-      "target_file": "既然Logits排序与Softmax完全一致_为什么还需要算Softmax.md",
-      "source_sha256": "641ac5b1613878ae251d1986043e308aeadadf342b292fbe1803e356f7a4fd53",
-      "last_synced_at": "2026-11-14T12:40:26.201899"
+    "知识库治理（一）Vault 死链治理与单向推导防线.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/知识库治理（一）Vault 死链治理与单向推导防线.md",
+      "target_file": "知识库治理（一）Vault 死链治理与单向推导防线.md",
+      "source_sha256": "dfffc0d7bd33e86cd8271c7aa188487e0ba4ad4abba8b0388fb9100c303a6076",
+      "last_synced_at": "2026-11-24T17:53:55.839312"
     },
-    "给语言模型装一个动态分类头.md": {
-      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/给语言模型装一个动态分类头.md",
-      "target_file": "给语言模型装一个动态分类头.md",
-      "source_sha256": "c1760277934935f60f30cd14d674a9a3c3616408f4c68bf2cdaeaf22f228734b",
-      "last_synced_at": "2026-11-24T17:02:32.682948"
+    "知识库治理（二）知识图谱降噪与实体收敛指南.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/知识库治理（二）知识图谱降噪与实体收敛指南.md",
+      "target_file": "知识库治理（二）知识图谱降噪与实体收敛指南.md",
+      "source_sha256": "3b01ae5e2b7bac22772a4d793a17e9b070ddb5ac415b8e2aca925b823ddf94dc",
+      "last_synced_at": "2026-11-24T17:53:55.842675"
     },
-    "决策模型的概率校准、置信度级联与端侧平替账单.md": {
-      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/决策模型的概率校准、置信度级联与端侧平替账单.md",
-      "target_file": "决策模型的概率校准、置信度级联与端侧平替账单.md",
-      "source_sha256": "141d4dfab86d699797e882cdfffc9a56089ee225e1ba319cb6e8623819cb45eb",
-      "last_synced_at": "2026-11-14T12:40:26.201007"
+    "hello-world.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/hello-world.md",
+      "target_file": "hello-world.md",
+      "source_sha256": "f47e15214e7bd4a79873578091f038b7ec9b4280912e236f6c04272837005181",
+      "last_synced_at": "2026-11-24T17:53:55.826161"
+    },
+    "既然 Logits 排序与 Softmax 完全一致，为什么还需要算 Softmax.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/既然 Logits 排序与 Softmax 完全一致，为什么还需要算 Softmax.md",
+      "target_file": "既然 Logits 排序与 Softmax 完全一致，为什么还需要算 Softmax.md",
+      "source_sha256": "aa21019680305e0543c2d96a5644e08287648cbf15723b6763c1b655201ed3d9",
+      "last_synced_at": "2026-11-24T17:53:55.835792"
+    },
+    "读论文 - JitRL 免梯度更新的测试时强化学习.md": {
+      "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/读论文 - JitRL 免梯度更新的测试时强化学习.md",
+      "target_file": "读论文 - JitRL 免梯度更新的测试时强化学习.md",
+      "source_sha256": "1e3808429eb2ad7696674a5adf83d5a01a1146520610310c98d1664eb0f5bbb0",
+      "last_synced_at": "2026-11-24T17:53:55.844899"
     }
   }
 }
