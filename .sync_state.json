@@ -52,8 +52,8 @@
     "给语言模型装一个动态分类头.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/给语言模型装一个动态分类头.md",
       "target_file": "给语言模型装一个动态分类头.md",
-      "source_sha256": "a16ef2967bfb764cfbfd7c0aa265316bb18f15f1f438d17958abbedc36d37649",
-      "last_synced_at": "2026-11-24T16:20:34.558299"
+      "source_sha256": "c1760277934935f60f30cd14d674a9a3c3616408f4c68bf2cdaeaf22f228734b",
+      "last_synced_at": "2026-11-24T17:02:32.682948"
     },
     "决策模型的概率校准、置信度级联与端侧平替账单.md": {
       "source_path": "/Users/ZHao/WorkSpace/knowledge-bank/raw/out-blogs/决策模型的概率校准、置信度级联与端侧平替账单.md",
